@@ -89,7 +89,12 @@ class YHClientTrader(ClientTrader):
         return ''.join(re.findall('\d+', vcode))
 
     def _close_prompt_windows(self):
-        self._wait(1)
+        # self._wait(1)
+        while True:
+            if len(self._app.windows(class_name='#32770')) != 2:
+                continue
+            break
+            
         for w in self._app.windows(class_name='#32770'):
             if w.window_text() != self._config.TITLE:
                 w.close()
